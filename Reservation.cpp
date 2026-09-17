@@ -1,6 +1,6 @@
 #include "Reservation.h"
 
-Reservation::Reservation() : expieValue(0), next(nullptr) {}
+Reservation::Reservation(int expieValue) : expieValue(expieValue), prev(nullptr), next(nullptr) {}
 
 Reservation* Reservation::getNext() const
 {
