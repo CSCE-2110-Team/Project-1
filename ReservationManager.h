@@ -5,9 +5,10 @@
 class ReservationManager {
 private:
   Reservation* head;
+  Reservation* tail;
   int length;
 public:
-  // Constructor defaults to nullptr for head and length 0.
+  // Constructor defaults to nullptr for head and tail while length defaults to 0.
   ReservationManager();
 
   // Adds a reservation at the pointer
