@@ -12,6 +12,17 @@ void Reservation::setNext(Reservation* next)
   this->next = next;
 }
 
+Reservation* Reservation::getPrev() const
+{
+   return prev;
+}
+
+void Reservation::setPrev(Reservation* prev)
+{
+  this->prev = prev;
+}
+
+
 int Reservation::getExpie() const
 {
   return expieValue;
