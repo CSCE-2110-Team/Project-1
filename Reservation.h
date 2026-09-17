@@ -16,7 +16,7 @@ public:
 
   //Getter Setter methods for prev.
   Reservation* getPrev() const;
-  void getNext(Reservation* prev);
+  void getPrev(Reservation* prev);
 
   //Getter for expieValue. No setter. Also temporary, seriously, remove me later.
   int getExpie() const;
