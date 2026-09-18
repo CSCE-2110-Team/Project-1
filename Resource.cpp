@@ -48,5 +48,15 @@ bool ResourceManager::loadResources(const string &filename) {
       cout << resources[i].id << " | " << resources[i].name << " | " << resources[i].type << " | " << resources[i].availabilityStatus << endl;
     }
   }
-      
+
+  void ResourceManager::displayAvailability(const string &resourceId) const {
+    //searches for the resource with the matching ID and prints if it is available
+    for (int i = 0; i < static_cast<int>(resource.size()); i++) {
+      if (resources[i].id == resourceId) {
+        cout << "That resource is " << resources[i].availabilityStatus << endl;
+        return; //stops searching for the resource once it is found. O(n)
+      }
+    }
+    cout << "Resource " << resourceId << " was not found." << endl; //if resourceId not in the vector. worst case scenario
+  }  
   
