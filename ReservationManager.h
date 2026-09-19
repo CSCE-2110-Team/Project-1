@@ -11,6 +11,15 @@ public:
   // Constructor defaults to nullptr for head and tail while length defaults to 0.
   ReservationManager();
 
+  // File Loader? I'm not quite sure, honestly.
+  bool loadReservations(const std::string& filename);
+
+  // UI functions
+  void reservationDisplay();
+  void reservationCreation();
+  void reservationCancellation();
+  void reservationSearch();
+
   // Adds a reservation at the pointer
   void addReserve(Reservation* reserve, Reservation* at);
   
@@ -23,8 +32,12 @@ public:
   // Removes a reservation by pointer.
   void removeReserve(Reservation* reserve);
 
-  // Finds a reservation based on expieValue, currently. Prone to change. For ctrl+f purposes, temporary.
-  Reservation* findReserve(int expieValue);
+  // Finds a reservation based on reservation Id.
+  Reservation* findReserve(int reserveId) const;
+
+  // Getters for head/tail reservations.
+  Reservation* getHead() const;
+  Reservation* getTail() const;
 };
 
 #endif
