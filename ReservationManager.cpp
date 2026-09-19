@@ -8,7 +8,7 @@ using namespace std;
 
 ReservationManager::ReservationManager() : head(nullptr), tail(nullptr), length(0) {}
 
-//credit to Robbie, I lifted this code from his work and adjusted it for my own. All comments from here until I say otherwise are Robby's. -Wesley
+//credit to Robby, I lifted this code from his work and adjusted it for my own. All comments from here until I say otherwise are Robby's. -Wesley
 bool ReservationManager::loadReservations(const string &filename) {
   //checks if file is there and able to be opened. Program stops if unable to open the file.
   ifstream inputFile(filename);
@@ -50,8 +50,10 @@ bool ReservationManager::loadReservations(const string &filename) {
 
 void ReservationManager::reservationDisplay()
 {
+  //initialize with the pointer to the first item in the linked list.
   Reservation* current = head;
 
+  //loops through every item in the linked list and reports what its values are.
   while (current != nullptr)
   {
       cout << "Reservation " << current->getReserveId() << ", Student Id " << current->getStudentId() << ", Student Name " << current->getStudentName() << ", Resource Id " << current->getResourceId() << ", Reservation Date " << current->getReserveDate() << endl;
@@ -66,6 +68,7 @@ void ReservationManager::reservationCreation()
   string resourceId;
   string reserveDate;
 
+  //get all reservation information.
   cout << "Enter Reservation ID: ";
   cin >> reserveId;
 
@@ -83,6 +86,7 @@ void ReservationManager::reservationCreation()
   cout << "Enter Reservation Date: ";
   cin >> reserveDate;
 
+  //create reservation.
   Reservation* reserve = new Reservation(
     reserveId,
     studentId,
@@ -93,6 +97,7 @@ void ReservationManager::reservationCreation()
 
   addReserve(reserve);
 
+  //report.
   cout << "Reservation created." << endl;
 }
 
@@ -100,29 +105,35 @@ void ReservationManager::reservationCancellation()
 {
   int reserveId;
 
+  //Figure out what reservation the user wants to cancel. Or -1 to not do that.
   cout << "Enter Reservation ID to cancel (-1 to cancel): ";
   cin >> reserveId;
-
+  
   if (reserveId == -1)
     return;
 
   Reservation* reserve = findReserve(reserveId);
 
+  //Make sure the reservation actually exists.
   if (reserve == nullptr)
   {
     cout << "Reservation not found." << endl;
     return;
   }
 
+  //eliminate the reservation with massive cruelty or something.
   removeReserve(reserve);
 
+  //report
   cout << "Reservation cancelled." << endl;
 }
 
 void ReservationManager::reservationSearch()
 {
-  int reserveId;
 
+  //find what the reservation the user wants to find. Or if they want the full list.
+  int reserveId;
+  
   cout << "Enter Reservation ID (-1 to cancel. -2 for a full list instead): ";
   cin >> reserveId;
 
@@ -136,13 +147,14 @@ void ReservationManager::reservationSearch()
 
   Reservation* reserve = findReserve(reserveId);
 
+  //make sure the reservation actually was found.
   if (reserve == nullptr)
   {
     cout << "Reservation not found." << endl;
     return;
   }
 
-  
+  //spill all the details.
   cout <<
     "Reservation ID: " << reserve->getReserveId() << endl <<
     "Student ID: " << reserve->getStudentId() << endl <<
