@@ -1,14 +1,23 @@
 #ifndef RESERVE_H
 #define RESERVE_H
 
+#include <string>
+
+class ReservationManager;
+
 class Reservation {
 private:
-  int expieValue; //temporary. Remove after experimenting.
+  ReservationManager* owner;
+  int reserveId;
+  int studentId;
+  std::string studentName;
+  std::string resourceId;
+  std::string reserveDate;
   Reservation* next;
   Reservation* prev;
 public:
-  //Constructor. Defaults next and prev to nullptr. Expie value part is very temporary.
-  Reservation(int Expievalue);
+  //Constructor.
+  Reservation(int reserveId, int studentId, std::string studentName, std::string resourceId, std::string reserveDate);
 
   //Getter Setter methods for next.
   Reservation* getNext() const;
@@ -18,7 +27,15 @@ public:
   Reservation* getPrev() const;
   void setPrev(Reservation* prev);
 
-  //Getter for expieValue. No setter. Also temporary, seriously, remove me later.
-  int getExpie() const;
+  //Getter setter for ownership, helps prevent mishandling.
+  ReservationManager* getOwner() const;
+  void setOwner(ReservationManager* owner);
+
+  //Getters for reservation values.
+  int getReserveId() const;
+  int getStudentId() const;
+  std::string getStudentName() const;
+  std::string getResourceId() const;
+  std::string getReserveDate() const;
 };
 #endif
