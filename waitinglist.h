@@ -26,7 +26,8 @@ void removeFromWaitingList();
 void displayWaitingList();
 
 void cancelReservation(CancelledReservation r);
-void restoreReservation();
+bool hasCancelledReservations();
+CancelledReservation popCancelled();
 void displayCancellationHistory();
 
 #endif
