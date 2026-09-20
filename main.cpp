@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Resource.h"
+#include "waitinglist.h"
 using namespace std;
 
 int main() {
