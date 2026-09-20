@@ -39,7 +39,7 @@ void displayWaitingList() {
     while (!temp.empty()) {
         ResourceWaitlist r = temp.front();
 
-        cout << r.ID << " | "
+        cout << r.reservationID << " | "
              << r.studentID << " | "
              << r.studentName << " | "
              << r.room << " | "
@@ -76,14 +76,14 @@ void displayCancellationHistory() {
         return;
     }
 
-    stack<Cancelled> temp = cancellationHistory;
+    stack<CancelledReservation> temp = cancellationHistory;
 
     cout << "\nCancellation History:" << endl;
 
     while (!temp.empty()) {
-        Cancelled r = temp.top();
+        CancelledReservation r = temp.top();
 
-        cout << r.ID << " | "
+        cout << r.reservationID << " | "
              << r.studentID << " | "
              << r.studentName << " | "
              << r.room << " | "
