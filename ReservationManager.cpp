@@ -1,4 +1,5 @@
 #include "ReservationManager.h"
+#include "waitinglist.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -135,11 +136,33 @@ void ReservationManager::reservationCancellation()
     return;
   }
 
+  //copies the cancelled reservation into cancelledReservation struct to be stored in stack and restored later if undone.
+  CancelledReservation cancelled;
+  cancelled.reservationID = reserve->getReserveId();
+  cancelled.studentID = reserve->getStudentId();
+  cancelled.studentName = reserve->getStudentName();
+  cancelled.room = reserve->getResourceId();
+  cancelled.date = reserve->getReserveDate();
+  cancelReservation(cancelled) //pushes cancelled reservation into stack
+
   //eliminate the reservation with massive cruelty or something.
   removeReserve(reserve);
 
   //report
   cout << "Reservation cancelled." << endl;
+}
+
+void ReservationManager::reservationRestoration() {
+  if(!hasCancelledReservations()) {
+    cout << "No cancelled reservations to restore." << endl; //checks to see if stack is empty
+  }
+else {
+  CancelledReservation cancelled = popCancelled(); //retrieves reservation from top of stack
+  Reservation *reserve = new Reservation(cancelled.reservationID, cancelled.studentID, cancelled.studentName, cancelled.room, cancelled.date);
+  //rebuilds it so it can fit into addReserve function
+  addReserve(reserve);
+  cout << "Reservation " << cancelled.reservationID << "restored." << endl;
+  }
 }
 
 void ReservationManager::reservationSearch()
