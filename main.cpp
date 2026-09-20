@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Resource.h"
 #include "ReservationManager.h"
+#include "waitinglist.h"
 using namespace std;
 
 int main() {

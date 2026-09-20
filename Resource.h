@@ -19,6 +19,8 @@ public:
     //used referenceso there is no unecessary copy made
     void displayResources() const;
     //displays data without changing it
+    void displayAvailability(const string &resourceId) const;
+    //function to loop through vector till the right resource is found, and then display if it is available or not
 
 private:
     vector<Resource> resources;
