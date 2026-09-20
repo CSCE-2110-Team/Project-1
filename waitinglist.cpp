@@ -1,49 +1,44 @@
 #include <iostream>
-#include <stack>
-#include <string>
 #include <queue>
+#include <stack>
 #include "waitinglist.h"
+
 using namespace std;
 
-queue<string> waitinglist;
-
-// Queue
-queue<Reservation> waitinglist;
+// Queue for waiting list
+queue<Reservation> waitingList;
 
 // Stack for cancellation history
 stack<Reservation> cancellationHistory;
 
-
-// Adding
-void addToWaitinglist(Reservation r) {
-    waitinglist.push(r);
+// Adding student to waiting list
+void addToWaitingList(Reservation r) {
+    waitingList.push(r);
 
     cout << r.studentName << " added to waiting list." << endl;
 }
 
-
-// Remove student
-void removeFromWaitinglist() {
-    if (waitinglist.empty()) {
+// Remove student from waiting list
+void removeFromWaitingList() {
+    if (waitingList.empty()) {
         cout << "Waiting list is empty." << endl;
         return;
     }
 
-    Reservation r = waitinglist.front();
-    waitinglist.pop();
+    Reservation r = waitingList.front();
+    waitingList.pop();
 
     cout << r.studentName << " removed from waiting list." << endl;
 }
 
-
-// Display 
-void displayWaitinglist() {
-    if (waitinglist.empty()) {
+// Display waiting list
+void displayWaitingList() {
+    if (waitingList.empty()) {
         cout << "Waiting list is empty." << endl;
         return;
     }
 
-    queue<Reservation> temp = waitinglist;
+    queue<Reservation> temp = waitingList;
 
     cout << "\nWaiting List:" << endl;
 
@@ -60,7 +55,6 @@ void displayWaitinglist() {
     }
 }
 
-
 // Cancel reservation
 void cancelReservation(Reservation r) {
     cancellationHistory.push(r);
@@ -68,8 +62,7 @@ void cancelReservation(Reservation r) {
     cout << r.studentName << "'s reservation was cancelled." << endl;
 }
 
-
-// Restore recently cancelled reservation
+// Restore most recently cancelled reservation
 void restoreReservation() {
     if (cancellationHistory.empty()) {
         cout << "No cancelled reservations." << endl;
@@ -87,7 +80,6 @@ void restoreReservation() {
          << r.room << " | "
          << r.date << endl;
 }
-
 
 // Display cancellation history
 void displayCancellationHistory() {
