@@ -5,10 +5,10 @@
 
 using namespace std;
 
-queue<Reservation> waitingList;
-stack<Reservation> cancellationHistory;
+queue<ResourceWaitlist> waitingList;
+stack<CancelledReservation> cancellationHistory;
 
-void addToWaitingList(Reservation r) {
+void addToWaitingList(ResourceWaitlist r) {
     waitingList.push(r);
 
     cout << r.studentName << " added to waiting list." << endl;
@@ -20,7 +20,7 @@ void removeFromWaitingList() {
         return;
     }
 
-    Reservation r = waitingList.front();
+    ResourceWaitlist r = waitingList.front();
     waitingList.pop();
 
     cout << r.studentName << " removed from waiting list." << endl;
@@ -32,14 +32,14 @@ void displayWaitingList() {
         return;
     }
 
-    queue<Reservation> temp = waitingList;
+    queue<ResourceWaitlist> temp = waitingList;
 
     cout << "\nWaiting List:" << endl;
 
     while (!temp.empty()) {
-        Reservation r = temp.front();
+        ResourceWaitlist r = temp.front();
 
-        cout << r.reservationID << " | "
+        cout << r.ID << " | "
              << r.studentID << " | "
              << r.studentName << " | "
              << r.room << " | "
@@ -49,24 +49,24 @@ void displayWaitingList() {
     }
 }
 
-void cancelReservation(Reservation r) {
+void cancel(Cancelled r) {
     cancellationHistory.push(r);
 
-    cout << r.studentName << "'s reservation was cancelled." << endl;
+    cout << r.studentName << "'s  was cancelled." << endl;
 }
 
-void restoreReservation() {
+void restore() {
     if (cancellationHistory.empty()) {
-        cout << "No cancelled reservations." << endl;
+        cout << "No cancelled s." << endl;
         return;
     }
 
-    Reservation r = cancellationHistory.top();
+    Cancelled r = cancellationHistory.top();
     cancellationHistory.pop();
 
-    cout << "Restored reservation:" << endl;
+    cout << "Restored :" << endl;
 
-    cout << r.reservationID << " | "
+    cout << r.ID << " | "
          << r.studentID << " | "
          << r.studentName << " | "
          << r.room << " | "
@@ -79,14 +79,14 @@ void displayCancellationHistory() {
         return;
     }
 
-    stack<Reservation> temp = cancellationHistory;
+    stack<Cancelled> temp = cancellationHistory;
 
     cout << "\nCancellation History:" << endl;
 
     while (!temp.empty()) {
-        Reservation r = temp.top();
+        Cancelled r = temp.top();
 
-        cout << r.reservationID << " | "
+        cout << r.ID << " | "
              << r.studentID << " | "
              << r.studentName << " | "
              << r.room << " | "
