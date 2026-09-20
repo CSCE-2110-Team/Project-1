@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Resource.h"
+#include "ReservationManager.h"
 #include "waitinglist.h"
 using namespace std;
 
@@ -10,6 +11,9 @@ int main() {
   if (!resourceManager.loadResources("resource.txt")) {
     return 1;
   }
+  ReservationManager reservationManager;
+  if (!reservationManager.loadReservations("reservations.txt"))
+    return 1;
 
   while (selection != 9) {
     cout << "===== Campus Resource Reservation System =====" << endl;
@@ -32,10 +36,10 @@ int main() {
       resourceManager.displayResources();
     }
     else if (selection == 2) {
-      
+      reservationManager.reservationCreation();
     }
     else if (selection == 3) {
-      
+      reservationManager.reservationCancellation();
     }
     else if (selection == 4) {
       
@@ -44,7 +48,7 @@ int main() {
       
     }
     else if (selection == 6) {
-      
+      reservationManager.reservationSearch();
     }
     else if (selection == 7) {
       
