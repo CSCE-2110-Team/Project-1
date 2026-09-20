@@ -42,6 +42,13 @@ bool ReservationManager::loadReservations(const string &filename) {
   //  resources.push_back(resource);
   //} This entire part isn't part of how my linked list works -Wesley
 
+  //make sure there is no overlap in resource and date, or reservation Id. Student Id and Name can overlap.
+  if (validateReserve(reserve))
+  {
+    delete reserve;
+    continue;
+  }
+  
   this->addReserve(reserve);
 }
   return true; //output of the boolean function
@@ -95,6 +102,13 @@ void ReservationManager::reservationCreation()
     reserveDate
   );
 
+  if (validateReserve(reserve))
+  {
+    cout << resourceId << " is already reserved for " << reserveDate << ", or you used a duplicate reservation Id." << endl;
+    delete reserve;
+    return;
+  }
+  
   addReserve(reserve);
 
   //report.
@@ -161,6 +175,12 @@ void ReservationManager::reservationSearch()
     "Student Name: " << reserve->getStudentName() << endl <<
     "Resource ID: " << reserve->getResourceId() << endl <<
     "Reservation Date: " << reserve->getReserveDate() << endl;
+}
+
+//returns 1 if it finds a conflict. Really it just translates nullptr to 1 and anything else to 0.
+bool ReservationManager::validateReserve(Reservation* reserve) const
+{
+  return findReserve(reserve->getResourceId(), reserve->getReserveDate(), reserve->getReserveId()) != nullptr;
 }
 
 void ReservationManager::addReserve(Reservation* reserve)
@@ -256,6 +276,24 @@ Reservation* ReservationManager::findReserve(int reserveId) const
   {
     //if it matches, give us back the evaluating pointer.
     if (evaluating->getReserveId() == reserveId)
+      return evaluating;
+    //else it moves the evaluation to the next pointer in the list. 
+    evaluating = evaluating->getNext();
+  }
+  //if we got nothing, we got nothing.
+  return nullptr;
+}
+
+//findReserve variant for validation purposes to prevent scheduling conflicts.
+Reservation* ReservationManager::findReserve(string resourceId, string reserveDate, int reserveId) const
+{
+  //Sets the current pointer being evaluated to be the head to initialize.
+  Reservation* evaluating = head;
+  //Loop runs until it's given a null pointer, which should be at the end of the list.
+  while (evaluating != nullptr)
+  {
+    //if it matches, give us back the evaluating pointer.
+    if ((evaluating->getResourceId() == resourceId && evaluating->getReserveDate() == reserveDate) || evaluating->getReserveId() == reserveId)
       return evaluating;
     //else it moves the evaluation to the next pointer in the list. 
     evaluating = evaluating->getNext();
