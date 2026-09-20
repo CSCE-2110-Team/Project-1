@@ -51,7 +51,7 @@ bool ResourceManager::loadResources(const string &filename) {
 
   void ResourceManager::displayAvailability(const string &resourceId) const {
     //searches for the resource with the matching ID and prints if it is available
-    for (int i = 0; i < static_cast<int>(resource.size()); i++) {
+    for (int i = 0; i < static_cast<int>(resources.size()); i++) {
       if (resources[i].id == resourceId) {
         cout << "That resource is " << resources[i].availabilityStatus << endl;
         return; //stops searching for the resource once it is found. O(n)
