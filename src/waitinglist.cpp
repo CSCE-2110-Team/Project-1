@@ -49,28 +49,25 @@ void displayWaitingList() {
     }
 }
 
-void cancel(Cancelled r) {
+void cancelReservation(CancelledReservation r) {
     cancellationHistory.push(r);
 
     cout << r.studentName << "'s  was cancelled." << endl;
 }
 
-void restore() {
-    if (cancellationHistory.empty()) {
-        cout << "No cancelled s." << endl;
-        return;
+bool hasCancelledReservations() {
+    if(cancellationHistory.empty()) {
+        return false;
     }
+    else {
+        return true;
+    }
+}
 
-    Cancelled r = cancellationHistory.top();
+CancellationReservation popCancelled() {
+    CancelledReservation r = cancellationHistory.top();
     cancellationHistory.pop();
-
-    cout << "Restored :" << endl;
-
-    cout << r.ID << " | "
-         << r.studentID << " | "
-         << r.studentName << " | "
-         << r.room << " | "
-         << r.date << endl;
+    return r;
 }
 
 void displayCancellationHistory() {
