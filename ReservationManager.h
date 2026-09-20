@@ -35,6 +35,10 @@ public:
   // Finds a reservation based on reservation Id.
   Reservation* findReserve(int reserveId) const;
 
+  // Validation stuffs
+  Reservation* findReserve(std::string resourceId, std::string reserveDate, int reserveId) const;
+  bool validateReserve(Reservation* reserve) const;
+
   // Getters for head/tail reservations.
   Reservation* getHead() const;
   Reservation* getTail() const;
