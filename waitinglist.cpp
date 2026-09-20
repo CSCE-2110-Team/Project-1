@@ -1,55 +1,48 @@
 #include <iostream>
-#include <string>
-#include <string>
+#include <stack>
 #include <queue>
+#include "waitinglist.h"
 using namespace std;
 
 queue<string> waitinglist;
-struct Reservation {
-    int reservationID;
-    int studentID;
-    string studentName;
-    string room;
-    string date;
-};
 
 // Queue
-queue<Reservation> waitingList;
+queue<Reservation> waitinglist;
 
 // Stack for cancellation history
 stack<Reservation> cancellationHistory;
 
 
 // Adding
-void addToWaitingList(Reservation r) {
-    waitingList.push(r);
+void addToWaitinglist(Reservation r) {
+    waitinglist.push(r);
 
     cout << r.studentName << " added to waiting list." << endl;
 }
 
 
 // Remove student
-void removeFromWaitingList() {
-    if (waitingList.empty()) {
+void removeFromWaitinglist() {
+    if (waitinglist.empty()) {
         cout << "Waiting list is empty." << endl;
         return;
     }
 
-    Reservation r = waitingList.front();
-    waitingList.pop();
+    Reservation r = waitinglist.front();
+    waitinglist.pop();
 
     cout << r.studentName << " removed from waiting list." << endl;
 }
 
 
 // Display 
-void displayWaitingList() {
-    if (waitingList.empty()) {
+void displayWaitinglist() {
+    if (waitinglist.empty()) {
         cout << "Waiting list is empty." << endl;
         return;
     }
 
-    queue<Reservation> temp = waitingList;
+    queue<Reservation> temp = waitinglist;
 
     cout << "\nWaiting List:" << endl;
 
