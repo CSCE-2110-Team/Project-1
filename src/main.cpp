@@ -45,7 +45,7 @@ int main() {
       
     }
     else if (selection == 5) {
-      
+      reservationManager.reservationRestoration();
     }
     else if (selection == 6) {
       reservationManager.reservationSearch();
