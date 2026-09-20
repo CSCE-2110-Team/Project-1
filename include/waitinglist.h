@@ -21,7 +21,7 @@ struct CancelledReservation {
     string date;
 };
 
-void addToWaitingList(ResourceWaitlistn r);
+void addToWaitingList(ResourceWaitlist r);
 void removeFromWaitingList();
 void displayWaitingList();
 
