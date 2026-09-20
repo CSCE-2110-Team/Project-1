@@ -18,6 +18,7 @@ public:
   void reservationDisplay();
   void reservationCreation();
   void reservationCancellation();
+  void reservationRestoration();
   void reservationSearch();
 
   // Adds a reservation at the pointer
