@@ -143,7 +143,7 @@ void ReservationManager::reservationCancellation()
   cancelled.studentName = reserve->getStudentName();
   cancelled.room = reserve->getResourceId();
   cancelled.date = reserve->getReserveDate();
-  cancelReservation(cancelled) //pushes cancelled reservation into stack
+  cancelReservation(cancelled); //pushes cancelled reservation into stack
 
   //eliminate the reservation with massive cruelty or something.
   removeReserve(reserve);
