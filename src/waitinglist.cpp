@@ -64,7 +64,7 @@ bool hasCancelledReservations() {
     }
 }
 
-CancellationReservation popCancelled() {
+CancelledReservation popCancelled() {
     CancelledReservation r = cancellationHistory.top();
     cancellationHistory.pop();
     return r;
