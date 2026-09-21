@@ -8,11 +8,11 @@ int main() {
   int selection = 0;
   ResourceManager resourceManager;
   //load in file
-  if (!resourceManager.loadResources("resource.txt")) {
+  if (!resourceManager.loadResources("data/resources.txt")) {
     return 1;
   }
   ReservationManager reservationManager;
-  if (!reservationManager.loadReservations("reservations.txt"))
+  if (!reservationManager.loadReservations("data/reservations.txt"))
     return 1;
 
   while (selection != 9) {
