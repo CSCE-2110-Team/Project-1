@@ -42,7 +42,7 @@ int main() {
       reservationManager.reservationCancellation();
     }
     else if (selection == 4) {
-      
+      displayWaitingList();
     }
     else if (selection == 5) {
       reservationManager.reservationRestoration();
