@@ -15,3 +15,5 @@ File Organization:
 include/ has all header files.
 src/ has all source files.
 data/contains the input files.
+
+cmd to run: g++ -Iinclude src/main.cpp src/Reservation.cpp src/ReservationManager.cpp src/Resource.cpp src/waitinglist.cpp
