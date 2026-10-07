@@ -1,0 +1,28 @@
+//find while (selection != 9) and change to :
+while (selection != 10)
+
+//change menu to:
+
+cout << "===== Campus Resource Reservation System =====" << endl;
+cout << endl;
+cout << " 1. View Resources" << endl;
+cout << " 2. Create Reservation" << endl;
+cout << " 3. Cancel Reservation" << endl;
+cout << " 4. View Waiting Lists" << endl;
+cout << " 5. Undo Cancellation" << endl;
+cout << " 6. Search Reservations" << endl;
+cout << " 7. Sort Resources" << endl;
+cout << " 8. Generate Report" << endl;
+cout << " 9. View Cancellation History" << endl;
+cout << "10. Exit" << endl;
+
+// add this after option 8:
+else if (selection == 9) {
+    displayCancellationHistory();
+}
+else if (selection == 10) {
+    cout << "Exiting..." << endl;
+}
+else {
+    cout << "Invalid selection." << endl;
+}
