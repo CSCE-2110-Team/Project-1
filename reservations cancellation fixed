@@ -1,0 +1,77 @@
+//find void ReservationManager::reservationCancellation() and replace with:
+
+void ReservationManager::reservationCancellation()
+{
+    int reserveId;
+
+    cout << "Enter Reservation ID to cancel (-1 to cancel): ";
+    cin >> reserveId;
+
+    if (reserveId == -1)
+        return;
+
+    Reservation* reserve = findReserve(reserveId);
+
+    if (reserve == nullptr)
+    {
+        cout << "Reservation not found." << endl;
+        return;
+    }
+
+
+    // Save cancellation information for the stack.
+    CancelledReservation cancelled;
+
+    cancelled.reservationID = reserve->getReserveId();
+    cancelled.studentID = reserve->getStudentId();
+    cancelled.studentName = reserve->getStudentName();
+    cancelled.room = reserve->getResourceId();
+    cancelled.date = reserve->getReserveDate();
+
+    // Push cancelled reservation onto stack.
+    cancelReservation(cancelled);
+
+
+    // Save these before deleting/removing the reservation.
+    string resourceId = reserve->getResourceId();
+    string reserveDate = reserve->getReserveDate();
+
+
+    // Remove current reservation.
+    removeReserve(reserve);
+
+    cout << "Reservation cancelled." << endl;
+
+
+
+    // CHECK WAITING LIST
+
+
+    ResourceWaitlist waitingStudent;
+
+    if (removeFromWaitingList(
+            resourceId,
+            reserveDate,
+            waitingStudent))
+    {
+        Reservation* replacement = new Reservation(
+            waitingStudent.reservationID,
+            waitingStudent.studentID,
+            waitingStudent.studentName,
+            waitingStudent.room,
+            waitingStudent.date
+        );
+
+        addReserve(replacement);
+
+        cout << waitingStudent.studentName
+             << " has been moved from the waiting list "
+             << "and given the available reservation."
+             << endl;
+    }
+    else
+    {
+        cout << "No students are waiting for this "
+             << "resource/date." << endl;
+    }
+}
