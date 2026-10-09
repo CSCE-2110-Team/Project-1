@@ -54,7 +54,7 @@ int main() {
       
     }
     else if (selection == 8) {
-      
+      resoruceManager.generateReport(reservationManager);
     }
     else {
       
