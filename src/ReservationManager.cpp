@@ -80,6 +80,12 @@ void ReservationManager::reservationCreation()
   cout << "Enter Reservation ID: ";
   cin >> reserveId;
 
+  // Check for duplicate reservation ID.
+  if (findReserve(reserveId) != nullptr) {
+    cout << "That Reservation ID is already being used." << endl;
+    return;
+  }
+
   cout << "Enter Student ID: ";
   cin >> studentId;
 
@@ -333,4 +339,43 @@ Reservation* ReservationManager::getHead() const
 Reservation* ReservationManager::getTail() const
 {
   return tail;
+}
+// Check if the resource is already reserved
+    // for this date.
+    if (findReserve(resourceId, reserveDate, -1) != nullptr)
+    {
+        ResourceWaitlist waiting;
+
+        waiting.reservationID = reserveId;
+        waiting.studentID = studentId;
+        waiting.studentName = studentName;
+        waiting.room = resourceId;
+        waiting.date = reserveDate;
+
+        // ADD TO WAITING LIST.
+        addToWaitingList(waiting);
+
+        cout << resourceId
+             << " is already reserved for "
+             << reserveDate << "." << endl;
+
+        cout << "You have been added to the waiting list."
+             << endl;
+
+        return;
+    }
+
+
+    // Resource is available.
+    Reservation* reserve = new Reservation(
+        reserveId,
+        studentId,
+        studentName,
+        resourceId,
+        reserveDate
+    );
+
+    addReserve(reserve);
+
+    cout << "Reservation created." << endl;
 }
