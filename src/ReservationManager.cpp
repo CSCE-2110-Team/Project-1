@@ -379,3 +379,31 @@ Reservation* ReservationManager::getTail() const
 
     cout << "Reservation created." << endl;
 }
+ResourceWaitlist waitingStudent;
+
+    if (removeFromWaitingList(
+            resourceId,
+            reserveDate,
+            waitingStudent))
+    {
+        Reservation* replacement = new Reservation(
+            waitingStudent.reservationID,
+            waitingStudent.studentID,
+            waitingStudent.studentName,
+            waitingStudent.room,
+            waitingStudent.date
+        );
+
+        addReserve(replacement);
+
+        cout << waitingStudent.studentName
+             << " has been moved from the waiting list "
+             << "and given the available reservation."
+             << endl;
+    }
+    else
+    {
+        cout << "No students are waiting for this "
+             << "resource/date." << endl;
+    }
+}
