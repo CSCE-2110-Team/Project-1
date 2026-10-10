@@ -51,7 +51,8 @@ int main() {
       reservationManager.reservationSearch();
     }
     else if (selection == 7) {
-      
+      resourceManager.sortResources();
+      resourceManager.displayResources();
     }
     else if (selection == 8) {
       
