@@ -15,7 +15,7 @@ int main() {
   if (!reservationManager.loadReservations("data/reservations.txt"))
     return 1;
 
-  while (selection != 10) {
+  while (selection != 9) {
     cout << "===== Campus Resource Reservation System =====" << endl;
     cout << endl;
     cout << " 1. View Resources" << endl;
@@ -27,8 +27,8 @@ int main() {
     cout << " 7. Sort Resources" << endl;
     cout << " 8. Generate Report" << endl;
     cout << " 9. Exit" << endl;
-    cout << "10. Exit" << endl;
-    
+    cout << "10. View Cancellation History" << endl;
+    cout << "11. Waiting-List Statistics Report" << endl;
 
     //input selection
     cout << "Enter choice: ";
@@ -61,11 +61,15 @@ int main() {
     else {
       
     }
+  
     else if (selection == 9) {
-      displayCancellationHistory();
+      cout << "Exiting..." << endl;
     }
     else if (selection == 10) {
-      cout << "Exiting..." << endl;
+      displayCancellationHistory();
+    }
+    else if (selection == 11) {
+      displayWaitingListStatistics();
     }
     else {
     cout << "Invalid selection." << endl;
