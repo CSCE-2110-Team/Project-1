@@ -78,4 +78,24 @@ bool ResourceManager::loadResources(const string &filename) {
         //compares the split names and whichever alphabetically comes first goes into the vector first.
         temporary[output++] = items[left++];//if names are equal the left is inserted first.
       }
-//finish the merge code for temp vector and add in sorted temp to the proper index
+      else {
+        temporary[output++] = items[right++];
+      }
+    }
+    while (left < middle) {
+//adds remaining words to vector if one side is empty
+      temporary[output++] = items[left++];
+    }
+    while (right < end) {
+//adds remaining words to vector if one side is empty
+      temporary[output++] = items[right++];
+    }
+    for (int index = begin; index < end; ++index) {
+      items[index] = temporary[index];
+    }
+  }
+
+void ResourceManager::sortResources(){
+  vector<Resource> temporary(resources.size());
+  mergeSortResources(resources, temporary, 0, static_cast<int>(resources.size()));
+}
