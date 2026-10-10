@@ -4,6 +4,8 @@
 #include <vector>
 using namespace std;
 
+class ReservationManager;
+
 //chose struct because it is public and allows class to access the data
 struct Resource {
     string id;
@@ -21,6 +23,7 @@ public:
     //displays data without changing it
     void displayAvailability(const string &resourceId) const;
     //function to loop through vector till the right resource is found, and then display if it is available or not
+    void generateReport(const ReservationManager&) const;
 
 private:
     vector<Resource> resources;
