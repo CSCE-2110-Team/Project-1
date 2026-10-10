@@ -32,6 +32,9 @@ bool removeFromWaitingList(
 
 void displayWaitingList();
 
+
+void displayWaitingListStatistics();
+
 // Cancellation history
 void cancelReservation(CancelledReservation r);
 bool hasCancelledReservations();
