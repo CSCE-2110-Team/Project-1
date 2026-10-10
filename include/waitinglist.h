@@ -21,10 +21,18 @@ struct CancelledReservation {
     string date;
 };
 
+// Waiting list
 void addToWaitingList(ResourceWaitlist r);
-void removeFromWaitingList();
+
+bool removeFromWaitingList(
+    const string& resourceId,
+    const string& date,
+    ResourceWaitlist& r
+);
+
 void displayWaitingList();
 
+// Cancellation history
 void cancelReservation(CancelledReservation r);
 bool hasCancelledReservations();
 CancelledReservation popCancelled();
