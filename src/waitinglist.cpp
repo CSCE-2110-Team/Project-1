@@ -1,86 +1,152 @@
 #include <iostream>
 #include <queue>
 #include <stack>
+#include <unordered_map>
 #include "waitinglist.h"
 
 using namespace std;
 
-queue<ResourceWaitlist> waitingList;
+// Each resource has its own waiting-list queue.
+unordered_map<string, queue<ResourceWaitlist>> waitingLists;
+
+// Cancellation history stack.
 stack<CancelledReservation> cancellationHistory;
 
-void addToWaitingList(ResourceWaitlist r) {
-    waitingList.push(r);
 
-    cout << r.studentName << " added to waiting list." << endl;
+// =====================================================
+// WAITING LIST
+// =====================================================
+
+void addToWaitingList(ResourceWaitlist r)
+{
+    waitingLists[r.room].push(r);
+
+    cout << r.studentName
+         << " added to the waiting list for resource "
+         << r.room << "." << endl;
 }
 
-void removeFromWaitingList() {
-    if (waitingList.empty()) {
-        cout << "Waiting list is empty." << endl;
-        return;
-    }
 
-    ResourceWaitlist r = waitingList.front();
-    waitingList.pop();
+bool removeFromWaitingList(
+    const string& resourceId,
+    const string& date,
+    ResourceWaitlist& r)
+{
+    auto it = waitingLists.find(resourceId);
 
-    cout << r.studentName << " removed from waiting list." << endl;
-}
-
-void displayWaitingList() {
-    if (waitingList.empty()) {
-        cout << "Waiting list is empty." << endl;
-        return;
-    }
-
-    queue<ResourceWaitlist> temp = waitingList;
-
-    cout << "\nWaiting List:" << endl;
-
-    while (!temp.empty()) {
-        ResourceWaitlist r = temp.front();
-
-        cout << r.reservationID << " | "
-             << r.studentID << " | "
-             << r.studentName << " | "
-             << r.room << " | "
-             << r.date << endl;
-
-        temp.pop();
-    }
-}
-
-void cancelReservation(CancelledReservation r) {
-    cancellationHistory.push(r);
-
-    cout << r.studentName << "'s  was cancelled." << endl;
-}
-
-bool hasCancelledReservations() {
-    if(cancellationHistory.empty()) {
+    if (it == waitingLists.end() || it->second.empty())
+    {
         return false;
     }
-    else {
-        return true;
+
+    queue<ResourceWaitlist>& q = it->second;
+
+    queue<ResourceWaitlist> temp;
+    bool found = false;
+
+    while (!q.empty())
+    {
+        ResourceWaitlist current = q.front();
+        q.pop();
+
+        if (!found && current.date == date)
+        {
+            r = current;
+            found = true;
+        }
+        else
+        {
+            temp.push(current);
+        }
+    }
+
+    q = temp;
+
+    return found;
+}
+
+
+void displayWaitingList()
+{
+    bool anyWaiting = false;
+
+    cout << "\n===== WAITING LISTS =====" << endl;
+
+    for (auto& pair : waitingLists)
+    {
+        const string& resourceId = pair.first;
+        queue<ResourceWaitlist> q = pair.second;
+
+        if (q.empty())
+            continue;
+
+        anyWaiting = true;
+
+        cout << "\nResource: " << resourceId << endl;
+
+        while (!q.empty())
+        {
+            ResourceWaitlist r = q.front();
+
+            cout << r.reservationID << " | "
+                 << r.studentID << " | "
+                 << r.studentName << " | "
+                 << r.room << " | "
+                 << r.date << endl;
+
+            q.pop();
+        }
+    }
+
+    if (!anyWaiting)
+    {
+        cout << "Waiting lists are empty." << endl;
     }
 }
 
-CancelledReservation popCancelled() {
+
+// =====================================================
+// CANCELLATION HISTORY STACK
+// =====================================================
+
+void cancelReservation(CancelledReservation r)
+{
+    cancellationHistory.push(r);
+
+    cout << r.studentName
+         << "'s reservation was cancelled." << endl;
+}
+
+
+bool hasCancelledReservations()
+{
+    return !cancellationHistory.empty();
+}
+
+
+CancelledReservation popCancelled()
+{
     CancelledReservation r = cancellationHistory.top();
     cancellationHistory.pop();
+
     return r;
 }
 
-void displayCancellationHistory() {
-    if (cancellationHistory.empty()) {
+
+void displayCancellationHistory()
+{
+    if (cancellationHistory.empty())
+    {
         cout << "Cancellation history is empty." << endl;
         return;
     }
 
     stack<CancelledReservation> temp = cancellationHistory;
 
-    cout << "\nCancellation History:" << endl;
+    cout << "\n===== CANCELLATION HISTORY =====" << endl;
 
-    while (!temp.empty()) {
+    while (!temp.empty())
+    {
         CancelledReservation r = temp.top();
 
         cout << r.reservationID << " | "
