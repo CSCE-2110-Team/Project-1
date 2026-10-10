@@ -104,6 +104,26 @@ void displayWaitingList()
     }
 }
 
+void displayWaitingListStatistics() {
+    cout << "\n===== WAITING-LIST STATISTICS =====" << endl;
+    cout << "Resource ID | Students Waiting" << endl;
+    cout << "-------------------------------" << endl;
+
+    if (waitingLists.empty())
+    {
+        cout << "No waiting-list data available." << endl;
+        return;
+    }
+
+    for (const auto& pair : waitingLists)
+    {
+        const string& resourceId = pair.first;
+        const queue<ResourceWaitlist>& q = pair.second;
+
+        cout << resourceId << " | "
+             << q.size() << endl;
+    }
+}
 
 // =====================================================
 // CANCELLATION HISTORY STACK
