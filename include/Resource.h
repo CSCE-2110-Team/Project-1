@@ -21,6 +21,8 @@ public:
     //displays data without changing it
     void displayAvailability(const string &resourceId) const;
     //function to loop through vector till the right resource is found, and then display if it is available or not
+    void sortResources();
+    //cals the mergeSortResources function to implement a merge sort on the current vector of resources based on their name.
 
 private:
     vector<Resource> resources;
