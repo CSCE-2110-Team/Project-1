@@ -57,7 +57,7 @@ int main() {
       resourceManager.displayResources();
     }
     else if (selection == 8) {
-      resoruceManager.generateReport(reservationManager);
+      resourceManager.generateReport(reservationManager);
     }
     else {
       
