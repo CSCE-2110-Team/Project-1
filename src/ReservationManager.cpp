@@ -250,7 +250,7 @@ void ReservationManager::addReserve(Reservation* reserve)
 void ReservationManager::addReserve(Reservation* reserve, Reservation* at)
 {
   //don't feed it a nullptr. Duh. || And don't feed it a node that's already owned, dummy! || AND don't try to add at a list that isn't this one! Silly!
-  if (reserve == nullptr || reserve->getOwner() != nullptr || at != nullptr && at->getOwner() != this)
+  if (reserve == nullptr || reserve->getOwner() != nullptr || (at != nullptr && at->getOwner() != this))
     return;
   //safety to ensure nullptr is redirected to the head.
   //bold to assume this makes it safe.
