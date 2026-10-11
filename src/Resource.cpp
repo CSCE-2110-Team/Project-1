@@ -111,6 +111,7 @@ void ResourceManager::searchResourceById(const string &resourceId) const {
     }
   }
   cout << "resource" << resourceId << " was not found." << endl;
+}
 void ResourceManager::generateReport(const ReservationManager& reservationManager) const {
   if (resources.empty()) //if there is no resouces in the file to add to the vector
     {
