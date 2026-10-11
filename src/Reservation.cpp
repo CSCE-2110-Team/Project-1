@@ -1,7 +1,7 @@
 #include "Reservation.h"
 using namespace std;
 
-Reservation::Reservation(int reserveId, int studentId, string studentName, string resourceId, string reserveDate) : owner(nullptr), reserveId(reserveId), studentId(studentId), studentName(studentName), resourceId(resourceId), reserveDate(reserveDate), prev(nullptr), next(nullptr) {}
+Reservation::Reservation(int reserveId, int studentId, string studentName, string resourceId, string reserveDate) : owner(nullptr), reserveId(reserveId), studentId(studentId), studentName(studentName), resourceId(resourceId), reserveDate(reserveDate), next(nullptr), prev(nullptr) {}
 
 Reservation* Reservation::getNext() const
 {
