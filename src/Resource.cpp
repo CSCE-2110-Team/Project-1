@@ -62,7 +62,7 @@ bool ResourceManager::loadResources(const string &filename) {
     cout << "Resource " << resourceId << " was not found." << endl; //if resourceId not in the vector. worst case scenario
   }  
   
-  void mergeSortResources(vector<Resources> &items, vector<Resource> &temporary, int begin, int end) {
+  void mergeSortResources(vector<Resource> &items, vector<Resource> &temporary, int begin, int end) {
     if (end - begin < 2){
       //no need to sort a vector with one item or less
       return;
