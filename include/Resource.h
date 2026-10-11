@@ -4,6 +4,8 @@
 #include <vector>
 using namespace std;
 
+class ReservationManager;
+
 //chose struct because it is public and allows class to access the data
 struct Resource {
     string id;
@@ -25,6 +27,7 @@ public:
     //cals the mergeSortResources function to implement a merge sort on the current vector of resources based on their name.
     void searchResourceById(const string &resourceId) const;
     //linear search starting from index 0 to the end of the vector
+    void generateReport(const ReservationManager&) const;
 
 private:
     vector<Resource> resources;

@@ -27,6 +27,8 @@ int main() {
     cout << " 7. Sort Resources" << endl;
     cout << " 8. Generate Report" << endl;
     cout << " 9. Exit" << endl;
+    cout << "10. View Cancellation History" << endl;
+    cout << "11. Waiting-List Statistics Report" << endl;
 
     //input selection
     cout << "Enter choice: ";
@@ -55,10 +57,23 @@ int main() {
       resourceManager.displayResources();
     }
     else if (selection == 8) {
-      
+      resoruceManager.generateReport(reservationManager);
     }
     else {
       
+    }
+  
+    else if (selection == 9) {
+      cout << "Exiting..." << endl;
+    }
+    else if (selection == 10) {
+      displayCancellationHistory();
+    }
+    else if (selection == 11) {
+      displayWaitingListStatistics();
+    }
+    else {
+    cout << "Invalid selection." << endl;
     }
   }
 return 0;

@@ -1,7 +1,9 @@
 #include "Resource.h"
+#include "ReservationManager.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <unordered_map>
 using namespace std;
 
 bool ResourceManager::loadResources(const string &filename) {
@@ -109,4 +111,26 @@ void ResourceManager::searchResourceById(const string &resourceId) const {
     }
   }
   cout << "resource" << resourceId << " was not found." << endl;
+void ResourceManager::generateReport(const ReservationManager& reservationManager) const {
+  if (resources.empty()) //if there is no resouces in the file to add to the vector
+    {
+          cout << "No resources are available." << endl;
+          return;//exits the function if true
+    }
+  unordered_map<string, int> reservationCount;
+  Reservation* current = reservationManager.getHead();
+  while (current)
+    {
+      string resourceId = current->getResourceId();
+      reservationCount[resourceId]++;
+      current = current->getNext();
+    }
+
+  for (int i = 0; i < static_cast<int>(resources.size()); i++)
+    {
+      cout << resources[i].id << " | "
+        << resources[i].name << " | "
+        << resources[i].type << " | "
+        << reservationCount[resources[i].id] << endl;
+    }
 }
