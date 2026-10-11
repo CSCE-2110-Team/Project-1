@@ -58,6 +58,8 @@ int main() {
     else if (selection == 8) {
       resourceManager.generateReport(reservationManager);
       displayWaitingListStatistics();
+      reservationManager.reservationDisplay();
+      resourceManager.displayReservedResources(reservationManager);
     }
     else if (selection == 9) {
       cout << "Exiting..." << endl;
