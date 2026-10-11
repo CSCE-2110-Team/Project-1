@@ -135,3 +135,27 @@ void ResourceManager::generateReport(const ReservationManager& reservationManage
         << reservationCount[resources[i].id] << endl;
     }
 }
+void ResourceManager::displayReservedResources(const ReservationManager& reservationManager) const {
+  unordered_map<string, int> reservationCount;
+  Reservation * current = reservationManager.getHead();
+  while (current){
+    reservationCount[current->getResourceId()]++;
+    current = current->getNext();
+  }
+
+  bool anyReserved = false;
+  for (int i = 0; i < static_cast<int>(resources.size()); i++){
+    int count = reservationCount[resources[i].id];
+    if (count == 0) {
+      continue;
+    }
+    if (!anyReserved) {
+      cout << "ID | Name | Type | Times Reserved" << endl;
+      anyReserved = true;
+    }
+    cout << resources[i].id << " | " << resources[i].name << " | " << resources[i].type << " | " << count << endl;
+  }
+  if (!anyReserved) {
+    cout << "No resources are currently reserved." << endl;
+  }
+}

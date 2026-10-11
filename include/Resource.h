@@ -28,6 +28,7 @@ public:
     void searchResourceById(const string &resourceId) const;
     //linear search starting from index 0 to the end of the vector
     void generateReport(const ReservationManager&) const;
+    void displayReservedResources(const ReservationManager&) const;//lists resources that have reservations, and how manyu times they are reserved.
 
 private:
     vector<Resource> resources;
