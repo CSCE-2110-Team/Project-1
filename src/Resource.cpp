@@ -99,3 +99,14 @@ void ResourceManager::sortResources(){
   vector<Resource> temporary(resources.size());
   mergeSortResources(resources, temporary, 0, static_cast<int>(resources.size()));
 }
+
+void ResourceManager::searchResourceById(const string &resourceId) const {
+  for (int i = 0; i < static_cast<int>(resources.size()); i++){//iterates over all indexes of vector
+    if (resources[i].id == resourceId) {
+      cout << "ID | Name | Type | Availability Status" << endl;
+      cout << resources[i].id << " | " << resources[i].name << " | " << resources[i].type << " | " << resources[i].availabilityStatus << endl;
+      return;//once match is found the loop stops
+    }
+  }
+  cout << "resource" << resourceId << " was not found." << endl;
+}
