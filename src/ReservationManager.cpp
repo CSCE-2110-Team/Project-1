@@ -99,7 +99,20 @@ void ReservationManager::reservationCreation()
 
   cout << "Enter Reservation Date: ";
   cin >> reserveDate;
+  if (findReserve(resourceId, reserveDate, -1) != nullptr){
+    ResourceWaitlist waiting;
+    waiting.reservationID = reserveId;
+    waiting.studentID = studentId;
+    waiting.studentName = studentName;
+    waiting.room = resourceId;
+    waiting.date = reserveDate;
 
+    addToWaitingList(waiting);
+    cout << resourceId << " is already reserved." << endl;
+    cout << "you have been added to a waiting list." << endl;
+    return;
+  }
+  
   //create reservation.
   Reservation* reserve = new Reservation(
     reserveId,
@@ -108,14 +121,6 @@ void ReservationManager::reservationCreation()
     resourceId,
     reserveDate
   );
-
-  if (validateReserve(reserve))
-  {
-    cout << resourceId << " is already reserved for " << reserveDate << ", or you used a duplicate reservation Id." << endl;
-    delete reserve;
-    return;
-  }
-  
   addReserve(reserve);
 
   //report.
@@ -156,8 +161,17 @@ void ReservationManager::reservationCancellation()
 
   //report
   cout << "Reservation cancelled." << endl;
-}
 
+ResourceWaitlist waitingStudent;
+if (removeFronWaitingList(cancelled.room, cancelled.date, waitingStudent)) {
+  Reservation* replacement = new Reservation(waitingStudent.reservationID, waitingStudent.studentID, waitingStudent.studentName, waitingStudent.room, waitingStudent.date);
+  addReserve(replacement);
+  cout << waitingStudent.studentName << " has been moved from the waiting list and given the available reservation." << endl;
+}
+else {
+  cout << "No one is waiting for a reservation for that time" << endl;
+}
+}
 void ReservationManager::reservationRestoration() {
   if(!hasCancelledReservations()) {
     cout << "No cancelled reservations to restore." << endl; //checks to see if stack is empty
@@ -339,71 +353,4 @@ Reservation* ReservationManager::getHead() const
 Reservation* ReservationManager::getTail() const
 {
   return tail;
-}
-// Check if the resource is already reserved
-    // for this date.
-    if (findReserve(resourceId, reserveDate, -1) != nullptr)
-    {
-        ResourceWaitlist waiting;
-
-        waiting.reservationID = reserveId;
-        waiting.studentID = studentId;
-        waiting.studentName = studentName;
-        waiting.room = resourceId;
-        waiting.date = reserveDate;
-
-        // ADD TO WAITING LIST.
-        addToWaitingList(waiting);
-
-        cout << resourceId
-             << " is already reserved for "
-             << reserveDate << "." << endl;
-
-        cout << "You have been added to the waiting list."
-             << endl;
-
-        return;
-    }
-
-
-    // Resource is available.
-    Reservation* reserve = new Reservation(
-        reserveId,
-        studentId,
-        studentName,
-        resourceId,
-        reserveDate
-    );
-
-    addReserve(reserve);
-
-    cout << "Reservation created." << endl;
-}
-ResourceWaitlist waitingStudent;
-
-    if (removeFromWaitingList(
-            resourceId,
-            reserveDate,
-            waitingStudent))
-    {
-        Reservation* replacement = new Reservation(
-            waitingStudent.reservationID,
-            waitingStudent.studentID,
-            waitingStudent.studentName,
-            waitingStudent.room,
-            waitingStudent.date
-        );
-
-        addReserve(replacement);
-
-        cout << waitingStudent.studentName
-             << " has been moved from the waiting list "
-             << "and given the available reservation."
-             << endl;
-    }
-    else
-    {
-        cout << "No students are waiting for this "
-             << "resource/date." << endl;
-    }
 }
