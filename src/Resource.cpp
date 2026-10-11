@@ -62,6 +62,55 @@ bool ResourceManager::loadResources(const string &filename) {
     cout << "Resource " << resourceId << " was not found." << endl; //if resourceId not in the vector. worst case scenario
   }  
   
+  void mergeSortResources(vector<Resources> &items, vector<Resource> &temporary, int begin, int end) {
+    if (end - begin < 2){
+      //no need to sort a vector with one item or less
+      return;
+    }
+
+    int middle = begin + (end - begin) / 2;//finds middle then splits. Sorts down until each temp vector has oen resource.
+    mergeSortResources(items, temporary, begin, middle);
+    mergeSortResources(items, temporary, middle, end);
+    int left = begin;
+    int right = middle;
+    int output = begin;
+
+    while (left < middle && right < end) {
+      if (items[left].name <= items[right].name){
+        //compares the split names and whichever alphabetically comes first goes into the vector first.
+        temporary[output++] = items[left++];//if names are equal the left is inserted first.
+      }
+      else {
+        temporary[output++] = items[right++];
+      }
+    }
+    while (left < middle) {
+//adds remaining words to vector if one side is empty
+      temporary[output++] = items[left++];
+    }
+    while (right < end) {
+//adds remaining words to vector if one side is empty
+      temporary[output++] = items[right++];
+    }
+    for (int index = begin; index < end; ++index) {
+      items[index] = temporary[index];
+    }
+  }
+
+void ResourceManager::sortResources(){
+  vector<Resource> temporary(resources.size());
+  mergeSortResources(resources, temporary, 0, static_cast<int>(resources.size()));
+}
+
+void ResourceManager::searchResourceById(const string &resourceId) const {
+  for (int i = 0; i < static_cast<int>(resources.size()); i++){//iterates over all indexes of vector
+    if (resources[i].id == resourceId) {
+      cout << "ID | Name | Type | Availability Status" << endl;
+      cout << resources[i].id << " | " << resources[i].name << " | " << resources[i].type << " | " << resources[i].availabilityStatus << endl;
+      return;//once match is found the loop stops
+    }
+  }
+  cout << "resource" << resourceId << " was not found." << endl;
 void ResourceManager::generateReport(const ReservationManager& reservationManager) const {
   if (resources.empty()) //if there is no resouces in the file to add to the vector
     {
